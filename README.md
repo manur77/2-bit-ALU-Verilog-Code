@@ -82,7 +82,7 @@ README.md     → Documentation
 - Use SystemVerilog for advanced verification  
 
 ---
-
+![Waveform](Waveform.png)
 ## 👨‍💻 Author
 
 Manu R  
