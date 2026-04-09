@@ -1,28 +1,20 @@
-module alu2 (
+module alu_2bit (
     input [1:0] a, b,
-    input en,
-    input [3:0] op,
-    output reg [3:0] alu
+    input [1:0] sel,
+    output reg [2:0] result   // 3-bit to handle carry
 );
 
-always @(*) 
-begin
-    if (en)
-    begin
-        case (op)
-            4'b0001: alu = a + b;        // ADD
-            4'b0010: alu = a - b;        // SUB
-            4'b0011: alu = ~a;           // NOT
-            4'b0100: alu = a * b;        // MUL
-            4'b0101: alu = a & b;        // AND
-            4'b0110: alu = a | b;        // OR
-            4'b0111: alu = ~(a & b);     // NAND
-            4'b1000: alu = a ^ b;        // XOR
-            default: alu = 4'b0000;
-        endcase
-    end
-    else
-        alu = 4'b0000;
+always @(*) begin
+    case(sel)
+        2'b00: result = a + b;   // Addition
+        2'b01: result = a - b;   // Subtraction
+        2'b10: result = a & b;   // AND
+        2'b11: result = a | b;   // OR
+        default: result = 3'b000;
+    endcase
 end
-
+initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars(0, alu_2bit_tb);
+end
 endmodule
